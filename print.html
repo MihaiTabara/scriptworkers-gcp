@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Scriptworkers in GCP</title>
+        
+        <meta name="robots" content="noindex" />
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li><a href="scriptworkers.html"><strong aria-hidden="true">1.</strong> Scriptworkers</a></li><li><ol class="section"><li><a href="scriptworkers-dockerization.html"><strong aria-hidden="true">1.1.</strong> Dockerization</a></li><li><a href="scriptworkers-k8s.html"><strong aria-hidden="true">1.2.</strong> Kubernetes</a></li><li><a href="scriptworkers-dev.html"><strong aria-hidden="true">1.3.</strong> Dev environment</a></li><li><a href="scriptworkers-production.html"><strong aria-hidden="true">1.4.</strong> Production environment</a></li><li><a href="scriptworkers-ci.html"><strong aria-hidden="true">1.5.</strong> CI</a></li><li><a href="scriptworkers-autoscaling.html"><strong aria-hidden="true">1.6.</strong> Autoscaling</a></li><li><a href="scriptworkers-secrets.html"><strong aria-hidden="true">1.7.</strong> Secrets</a></li><li><a href="scriptworkers-troubleshooting.html"><strong aria-hidden="true">1.8.</strong> Troubleshooting</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Scriptworkers in GCP</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#overview" id="overview">Overview</a></h1>
+<p>As of Sep 2019 we have 9 scriptworkers dockerized.</p>
+<h2><a class="header" href="#addonscript" id="addonscript">addonscript</a></h2>
+<table><thead><tr><th>Worker type</th><th>Deployment name</th></tr></thead><tbody>
+<tr><td>gecko-1-addon-dev</td><td>addon-dev-relengworker-app-1</td></tr>
+<tr><td>gecko-3-addon</td><td>addon-prod-relengworker-firefox-1</td></tr>
+<tr><td>gecko-1-addon</td><td>addon-prod-relengworker-fake-firefox-1</td></tr>
+</tbody></table>
+<h2><a class="header" href="#balrogscript" id="balrogscript">balrogscript</a></h2>
+<table><thead><tr><th>Worker type</th><th>Deployment name</th></tr></thead><tbody>
+<tr><td>gecko-1-balrog-dev</td><td>balrog-dev-relengworker-firefox-1</td></tr>
+<tr><td>gecko-3-balrog</td><td>balrog-prod-relengworker-firefox-1</td></tr>
+<tr><td>gecko-1-balrog</td><td>balrog-prod-relengworker-fake-firefox-1</td></tr>
+<tr><td>comm-3-balrog</td><td>balrog-prod-relengworker-thunderbird-1</td></tr>
+<tr><td>comm-1-balrog</td><td>balrog-prod-relengworker-fake-thunderbird-1</td></tr>
+</tbody></table>
+<h2><a class="header" href="#beetmoverscript" id="beetmoverscript">beetmoverscript</a></h2>
+<table><thead><tr><th>Worker type</th><th>Deployment name</th></tr></thead><tbody>
+<tr><td>gecko-1-beetmover-dev</td><td>beetmover-dev-relengworker-firefox-1</td></tr>
+<tr><td>gecko-3-beetmover</td><td>beetmover-prod-relengworker-firefox-1</td></tr>
+<tr><td>gecko-1-beetmover</td><td>beetmover-prod-relengworker-fake-firefox-1</td></tr>
+<tr><td>comm-3-beetmover</td><td>beetmover-prod-relengworker-thunderbird-1</td></tr>
+<tr><td>appservices-3-beetmover</td><td>beetmover-prod-relengworker-applicationservices-1</td></tr>
+<tr><td>mobile-3-beetmover</td><td>beetmover-prod-relengworker-mobile-1</td></tr>
+</tbody></table>
+<h2><a class="header" href="#bouncerscript" id="bouncerscript">bouncerscript</a></h2>
+<table><thead><tr><th>Worker type</th><th>Deployment name</th></tr></thead><tbody>
+<tr><td>gecko-1-bouncer-dev</td><td>bouncer-dev-relengworker-firefox-1</td></tr>
+<tr><td>gecko-3-bouncer</td><td>bouncer-prod-relengworker-firefox-1</td></tr>
+<tr><td>gecko-1-bouncer</td><td>bouncer-prod-relengworker-fake-firefox-1</td></tr>
+<tr><td>comm-3-bouncer</td><td>bouncer-prod-relengworker-thunderbird-1</td></tr>
+</tbody></table>
+<h2><a class="header" href="#pushapkscript" id="pushapkscript">pushapkscript</a></h2>
+<table><thead><tr><th>Worker type</th><th>Deployment name</th></tr></thead><tbody>
+<tr><td>gecko-1-pushapk-dev</td><td>pushapk-dev-relengworker-firefox-1</td></tr>
+<tr><td>gecko-3-pushapk</td><td>pushapk-prod-relengworker-firefox-1</td></tr>
+<tr><td>gecko-1-pushapk</td><td>pushapk-prod-relengworker-fake-1</td></tr>
+<tr><td>mobile-3-pushapk</td><td>pushapk-prod-relengworker-mobile-1</td></tr>
+<tr><td>mobile-1-pushapk</td><td>pushapk-prod-relengworker-fake-mobile-1</td></tr>
+</tbody></table>
+<h2><a class="header" href="#pushsnapscript" id="pushsnapscript">pushsnapscript</a></h2>
+<table><thead><tr><th>Worker type</th><th>Deployment name</th></tr></thead><tbody>
+<tr><td>gecko-1-pushsnap-dev</td><td>pushsnap-dev-relengworker-firefox-1</td></tr>
+<tr><td>gecko-3-pushsnap</td><td>pushsnap-prod-relengworker-firefox-1</td></tr>
+<tr><td>gecko-1-pushsnap</td><td>pushsnap-prod-relengworker-fake-1</td></tr>
+</tbody></table>
+<h2><a class="header" href="#shipitscript" id="shipitscript">shipitscript</a></h2>
+<table><thead><tr><th>Worker type</th><th>Deployment name</th></tr></thead><tbody>
+<tr><td>gecko-1-shipit-dev</td><td>shipit-dev-relengworker-firefox-1</td></tr>
+<tr><td>gecko-3-shipit</td><td>shipit-prod-relengworker-firefox-1</td></tr>
+<tr><td>gecko-1-shipit</td><td>shipit-prod-relengworker-fake-firefox-1</td></tr>
+<tr><td>comm-3-shipit</td><td>shipit-prod-relengworker-thunderbird-1</td></tr>
+<tr><td>comm-1-shipit</td><td>shipit-prod-relengworker-fake-thunderbird-1</td></tr>
+</tbody></table>
+<h2><a class="header" href="#signingscript" id="signingscript">signingscript</a></h2>
+<p>Waiting on winsign, autograph, etc.</p>
+<h2><a class="header" href="#treescript" id="treescript">treescript</a></h2>
+<table><thead><tr><th>Worker type</th><th>Deployment name</th></tr></thead><tbody>
+<tr><td>gecko-1-tree-dev</td><td>tree-dev-relengworker-firefox-1</td></tr>
+<tr><td>gecko-3-tree</td><td>tree-prod-relengworker-firefox-1</td></tr>
+<tr><td>gecko-1-tree</td><td>tree-prod-relengworker-fake-firefox-1</td></tr>
+<tr><td>comm-3-tree</td><td>tree-prod-relengworker-thunderbird-1</td></tr>
+</tbody></table>
+<h1><a class="header" href="#dockerization-of-scriptworkers" id="dockerization-of-scriptworkers">Dockerization of scriptworkers</a></h1>
+<p>Every scriptworker has its own <code>Dockerfile</code> in the root directory. The commands
+are limited to the version used in Taskcluster and may not support newer
+features. The file is kept simple and most of the logic is handled by files in
+the <code>docker.d</code> directory.</p>
+<ul>
+<li>
+<p><code>docker.d/init.sh</code></p>
+<p>This file contains logic that is the same for all workers and supposed to be
+identical.</p>
+</li>
+<li>
+<p><code>docker.d/init_worker.sh</code></p>
+<p>This file contains logic that is worker specific.</p>
+</li>
+</ul>
+<p>Both init files explicitly use shell's <code>test</code> to check for all required
+environment variables in order to fail as soon as possible.</p>
+<ul>
+<li>
+<p><code>docker.d/scriptworker.yml</code> and <code>docker.d/worker.yml</code></p>
+<p>These files are JSON-e templates for scriptworker and the implementation
+script. The final configs are generated during the initial boot process.</p>
+</li>
+</ul>
+<h1><a class="header" href="#kuberbnetes" id="kuberbnetes">Kuberbnetes</a></h1>
+<p>The scriptworkers are hosted in Google Compute Cloud (GCP) using Kubernetes.
+The deployment process is managed by the CloudOps team.</p>
+<p>Make sure you have access to the GCP console for the
+<a href="https://console.cloud.google.com/kubernetes/workload?organizationId=442341870013&amp;project=moz-fx-relengworker-prod-a67d&amp;workload_list_tablesize=50">production</a>
+and
+<a href="https://console.cloud.google.com/kubernetes/workload?project=moz-fx-relengwor-nonprod-4a87&amp;organizationId=442341870013&amp;workload_list_tablesize=50">nonprod</a>
+environments. You can get access by filing a bug against CloudOps.</p>
+<p>The CloudOps deployment process is managed by Jenkins and the corresponding
+files can be found in the
+<a href="https://github.com/mozilla-services/cloudops-infra/tree/master/projects/relengworker">cloudops-infra</a>
+repo.</p>
+<p>The environment variables are set per deployment and can be found in the
+<a href="https://github.com/mozilla-services/cloudops-infra/tree/master/projects/relengworker/k8s/values">k8s/values</a>
+directory. The default values are set in a <a href="https://github.com/mozilla-services/cloudops-infra/blob/master/projects/relengworker/k8s/charts/beetmover/values.yaml">separate
+file</a>.
+The variables use camelCase, but then converted to SHELL_STYLE in
+<a href="https://github.com/mozilla-services/cloudops-infra/blob/master/projects/relengworker/k8s/charts/beetmover/templates/configmap.yaml">configmap.yml</a></p>
+<p>When Kubernetes decides to stop a worker it gives it 1200s to do this
+gracefully, see <a href="https://github.com/mozilla-services/cloudops-infra/blob/00c53c02fbe1d8d6e0f77a2d3c20ebd813bd43ab/projects/relengworker/k8s/charts/beetmover/templates/deployment.yaml#L35">the corresponding k8s
+config</a>.
+As a part of shutdown process, Kubernetes runs
+<a href="https://github.com/mozilla-services/cloudops-infra/blob/00c53c02fbe1d8d6e0f77a2d3c20ebd813bd43ab/projects/relengworker/k8s/charts/beetmover/templates/deployment.yaml#L43">docker.d/pre-stop.sh</a>
+to us enough time to finish running tasks. <code>docker.d/pre-stop.sh</code> sends
+<code>SIGUSR1</code> to scriptworker, what makes it exit as soon as it finishes the
+running task. 2 minutes before the deadline <code>docker.d/pre-stop.sh</code> exits and
+lets Kubernetes send <code>SIGTERM</code> what makes scriptworker cancel the task and
+upload the logs.</p>
+<p>Kubernetes also runs a health check, by calling <code>docker.d/healthcheck</code>
+periodically. If the script exits non-zero or times out, the corresponding
+replica is marked as non healthy and will be removed from the pool.</p>
+<h1><a class="header" href="#dev-environment" id="dev-environment">Dev environment</a></h1>
+<p>In case you want to test your changes before pushing to production or
+submitting a PR, you can &quot;force push&quot; your changes to the <code>dev</code> branch and it
+will be deployed to the
+<a href="https://console.cloud.google.com/kubernetes/workload?project=moz-fx-relengwor-nonprod-4a87&amp;organizationId=442341870013&amp;workload_list_tablesize=50">nonprod</a>
+Kubernetes cluster.</p>
+<p>You also need to adjust the in-tree configs to use the <code>-dev</code> workerType, e.g.
+<code>gecko-1-beetmover-dev</code>. If you need to test workers other than gecko, you can
+change <code>init.sh</code> and/or <code>init_worker.sh</code> in order to set proper worker type.
+Also you may need to ask CloupdOps to add the corresponding environment
+variables or secrets.</p>
+<h1><a class="header" href="#production-environment" id="production-environment">Production environment</a></h1>
+<p>After a change is pushed to the <code>production</code> branch and passed CI, the CloudOps
+deployment process gracefully deploys it to the corresponding <a href="https://console.cloud.google.com/kubernetes/workload?organizationId=442341870013&amp;project=moz-fx-relengworker-prod-a67d&amp;workload_list_tablesize=50">production
+deployments</a>.
+The deployment status is reported in the #releng-notifications Slack channel.</p>
+<h1><a class="header" href="#continuous-integration" id="continuous-integration">Continuous Integration</a></h1>
+<p>Every pull request runs unit tests and makes sure that we can build a docker
+image. CloudOps deployments happen only when the change is pushed to either
+<code>dev</code> or <code>production</code> branch. The only exception is the
+<a href="https://github.com/mozilla-releng/k8s-autoscale">k8s-autoscale</a> repo, which
+deploys to the <code>nonprod</code> environment on every push to <code>master</code> to make sure we
+have the latest version running and tested before we push it to production, and
+to the <code>production</code> environment, when a change is pushed to the <code>production</code>
+branch.</p>
+<p>Make sure you have access to <a href="https://ops-master.jenkinsv2.prod.mozaws.net/job/gcp-pipelines/job/relengworker/">CloudOps
+Jenkins</a>.
+File a bug similar to <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1568649">this
+one</a> in order to get
+access. You will need to use Duo and SSH proxy in order to access it. See <a href="https://github.com/mozilla-services/cloudops-deployment#accessing-jenkins">the
+instruction</a>
+for the details.</p>
+<h1><a class="header" href="#autoscaling" id="autoscaling">Autoscaling</a></h1>
+<p>We use our own way to autoscale the amount of replicas using
+<a href="https://github.com/mozilla-releng/k8s-autoscale">k8s-autoscale</a>. It looks at
+the pending queue and adjusts the amount of replicas depending on average task
+duration, SLA and the maximum amount of replicas we want to run.</p>
+<p>The configs can be found in the
+<a href="https://github.com/mozilla-releng/k8s-autoscale/tree/master/configs">configs</a>
+directory. Some important config variables are below:</p>
+<ul>
+<li><code>worker_type</code>: corresponds to Taskcluster's <code>workerType</code></li>
+<li><code>deployment_namespace</code>: corresponds to deployment's namespace in Kubernetes
+and used in the Kubernetes API queries.</li>
+<li><code>deployment_name</code>: corresponds to deployment's name in Kubernetes and used in
+the Kubernetes API queries.</li>
+<li><code>max_replicas</code> and <code>min_replicas</code>: set the max and min amount of replicas</li>
+<li><code>avg_task_duration</code>: average task duration. Used in calculations and affects
+the amount of replicas we spin up.</li>
+<li><code>sla_seconds</code>: how many seconds we tolerate waiting until we start a pending
+task. For example, with 1 running instance, <code>sla_seconds</code> set to 240 and
+<code>avg_task_duration</code> set to 60, we don't spin up new instances until we have
+more than 4 pending tasks.</li>
+<li><code>capacity_ratio</code>: a value between 0 and 1, which tells what portion of the
+pending pool this entry can handle. Used in case we want to use multiple
+entries for the same worker type in different clusters.</li>
+</ul>
+<p>After a change is merged to the <code>master</code> branch, it's immediately deployed to
+the dev GCP cluster. In order to deploy the changes to production, you need to
+merge from <code>master</code> to the <code>production</code> branch.</p>
+<h1><a class="header" href="#secrets" id="secrets">Secrets</a></h1>
+<p>All secrets are generated from by the CloudOps deployment process, see <a href="https://github.com/mozilla-services/cloudops-infra/blob/master/projects/relengworker/k8s/charts/beetmover/templates/secret.yaml">example
+template</a></p>
+<p>All secrets are passed to the replicas via environment variables and replaced
+in the configs using JSON-e or saved to files. In latter case please encode the
+contents of the file using <code>base64 -w0</code> before handling them to CloudOps, and
+use <code>echo $VAR | base64 -d &gt; file</code> to save the value into a file in
+<code>init_worker.sh</code>.</p>
+<p>Similarly to environment variables, the secrets use camelCase, and then
+converted to SHELL_STYLE. When you pass the secrets to CloudOps, use camelCase
+and YAML format. For example:</p>
+<pre><code class="language-yaml">mySecret1: 'supersecretthing'
+mySecret1: 'supersecretthing'
+</code></pre>
+<p>The secrets can be passed using Firefox Send. Protect the file with a password
+and limit it to 1 download only, then pass the URL to a person from the
+CluodOps team.</p>
+<h1><a class="header" href="#troubleshooting" id="troubleshooting">Troubleshooting</a></h1>
+<ul>
+<li>Check the logs uploaded to Taskcluster.</li>
+<li>Check the Kubernetes container logs. They can be viewed per deployment or per replica.</li>
+<li>Check the <a href="https://ops-master.jenkinsv2.prod.mozaws.net/job/gcp-pipelines/job/relengworker/">Jenkins logs</a>.</li>
+<li>Ask CloudOps ofr help. They can use <code>kubectl attach</code> to see what happens in the container.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
