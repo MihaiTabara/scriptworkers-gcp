@@ -4,8 +4,10 @@ Every pull request runs unit tests and makes sure that we can build a docker
 image. CloudOps deployments happen only when the change is pushed to either
 `dev` or `production` branch. The only exception is the
 [k8s-autoscale](https://github.com/mozilla-releng/k8s-autoscale) repo, which
-deploys to the `dev` environment on every push to `master`, and to the
-`production` environment, when a change is pushed to the `production` branch.
+deploys to the `nonprod` environment on every push to `master` to make sure we
+have the latest version running and tested before we push it to production, and
+to the `production` environment, when a change is pushed to the `production`
+branch.
 
 Make sure you have access to [CloudOps
 Jenkins](https://ops-master.jenkinsv2.prod.mozaws.net/job/gcp-pipelines/job/relengworker/).
