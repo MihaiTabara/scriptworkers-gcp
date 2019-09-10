@@ -1,0 +1,5 @@
+[book]
+authors = ["Rail Aliiev"]
+multilingual = false
+src = "src"
+title = "Scriptworkers in GCP"
